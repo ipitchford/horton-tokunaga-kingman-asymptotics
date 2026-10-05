@@ -1,0 +1,55 @@
+{
+  "title": "Leaf-conditioned order in critical Tokunaga trees and strong Horton asymptotics for Kingman's coalescent",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    {
+      "name": "Anonymous"
+    }
+  ],
+  "version": "1.1.0-candidate",
+  "publication_date": "2026-10-05",
+  "access_right": "open",
+  "license": "cc-zero",
+  "keywords": [
+    "Horton-Strahler order",
+    "Tokunaga trees",
+    "Kingman coalescent",
+    "local limit theorem",
+    "branching processes"
+  ],
+  "description": "Unrefereed analytic candidate: exact-leaf-conditioned order and phase-dependent moments for critical Tokunaga trees with c>1; a positive geometric prefactor for deterministic limiting Kingman branch densities. Supplied review actioned; internal symbolic/rational and numerical stability diagnostics, not formal or independent verification. No joint finite-size/order limit, certified decimals, new c=2 register law or empirical river validation. Original prose/data CC0; code MIT.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/ipitchford/horton-tokunaga-kingman-asymptotics",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.1214/19-PS331",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1214/16-AIHP748",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1016/0304-3975(79)90009-4",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1214/21-EJP678",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1214/25-AAP2204",
+      "relation": "cites",
+      "scheme": "doi"
+    }
+  ],
+  "doi": "10.5281/zenodo.23160583"
+}

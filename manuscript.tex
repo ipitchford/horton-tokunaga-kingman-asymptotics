@@ -1,0 +1,519 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,booktabs,enumitem}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}\newcommand{\Pp}{\mathbb P}
+\newcommand{\N}{\mathbb N}\newcommand{\R}{\mathbb R}
+\newcommand{\NN}{\mathcal N}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Var}{Var}
+\title{Leaf-conditioned order in critical Tokunaga trees\\and strong Horton asymptotics for Kingman's coalescent}
+\author{Anonymous}
+\date{5 October 2026\\\small Candidate proof manuscript; not independently refereed}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give candidate proofs of refined asymptotics for two random-tree models. For every critical Tokunaga parameter $c>1$, the expected Horton--Strahler order conditioned on $n$ leaves is $\log_{2c}n+D_c(\log_{2c}n)+o(1)$, with an explicitly characterized continuous period-one function. More strongly, we obtain a phase-dependent conditional law in total variation and convergence of every fixed absolute moment. The argument uses an exact Galton--Watson-with-immigration representation and a weighted lattice local limit theorem. For Kingman's coalescent, the deterministic limiting branch densities satisfy both the ratio Horton law and $\NN_j\rho^j\to H\in(0,\infty)$. The additional ingredients are monotone endpoint-normalized profiles and a fractional-linear comparison proving that $h_k(1)+1$ is supermultiplicative. Numerical calculations are diagnostic only; no theorem depends on a floating-point output.
+\end{abstract}
+
+\section{Scope and conventions}
+We address exact-leaf-conditioned order in critical Tokunaga trees and a positive geometric prefactor for Kingman's limiting branch densities: Problem 3 and the stronger-asymptotics part of Problem 9 in Kovchegov and Zaliapin's survey~\cite{KZ2020}. Leaves have Horton--Strahler order one. We use $R=2c$ for the Tokunaga model and $\rho$ for the Kingman constant, to avoid conflating two different constants.
+
+For the Tokunaga model, the established inputs are the critical-process definition, independence of exponential edge lengths from tree shape, and the inverse-pruning construction (published survey Definition 25, p.~83; Proposition 11(2), p.~84; and Section 7.6.1, Lemma 12, p.~87). For Kingman, the input is the deterministic branch-density/ODE representation established in~\cite{KZ2017}. Fixed-order convergence of normalized finite-tree counts is already part of that result. The new issue is the subsequent limit in branch order, not a new fixed-order concentration theorem. We prove the needed analytic properties of the ODE hierarchy below, including the comparison used in the earlier root-Horton proof.
+
+These arguments do not assert a joint limit for an arbitrary sequence $j=j(N)$ in finite Kingman trees, an almost-sure limit for every coupling of such trees, or a closed form for $\rho$.
+
+\subsection{Prior work and the precise contribution}
+The binary Catalan case is classical, including bounded periodic corrections in register-function asymptotics~\cite{FRV1979}. Here $c=2$ is the critical binary Galton--Watson case, not a new model. With $n$ leaves there are $n-1$ internal vertices and $2n-1$ total vertices; a statistic assigning zero to leaves is $K-1$ in our convention. Thus conversion from an internal-vertex formula uses $n-1$, not $n$, and conversion of an order-zero formula adds one. Since $\log_4(n-1)-\log_4 n=o(1)$, these size conventions agree at the stated precision after the order shift. More explicitly, if that convention gives $\E H=\log_4 m+F(\log_4 m)+o(1)$, then our correction is $D_2(\theta)=1+F(\theta)$, whenever $F$ is continuous and period one. We do not claim originality for this specialization.
+
+Brandenberger, Devroye and Reddad~\cite{BDR2021} establish first-order conditioned Galton--Watson growth. Khanfir~\cite{Khanfir2025,KhanfirFluct} extends this context to possibly infinite variance and develops fluctuations using a weighted real-valued statistic. Those results concern different model assumptions and observables. The present contribution is the integer-valued exact-leaf-conditioned local law and moment control for the full critical Tokunaga family $c>1$, whose reduction below is to an auxiliary immigration chain, not an assertion that the trees are ordinary Galton--Watson trees.
+
+For Kingman, the root-Horton exponent and endpoint comparison are established in~\cite{KZ2017}; the approximate numerical value of $\rho$ is not new. Our additional steps are monotonicity of normalized profiles and a M\"obius comparison ensuring a nonzero geometric prefactor. The literature comparison is bounded, not a guarantee of exhaustive priority. The two reusable mechanisms are weighted local bounds for exact conditioning and a structural normalization bound beyond ratio convergence.
+
+\part*{I. Exact leaf conditioning}
+
+\section{Critical Tokunaga trees: theorem and exact reduction}
+Let $K=\ord(T)$ and let $L$ be the number of leaves in a critical Tokunaga tree. Its parameters are
+\[
+\lambda_j=\gamma c^{1-j},\qquad \Pp(K=k)=2^{-k},\qquad
+T_j=(c-1)c^{j-1},\qquad c>1,\quad\gamma>0.
+\]
+The scale $\gamma$ does not affect the combinatorial distributions. Write $X_k$ for the leaf count conditional on order $k$, and set $R=2c$.
+At $c=1$ the offspring mechanism is deterministic (perfect binary trees); the smoothing argument used here does not apply, so this boundary is excluded.
+
+\begin{theorem}\label{thm:toku}
+There is a strictly positive continuous density $w_c$ on $(0,\infty)$ such that the series
+\begin{align}
+ S_c(\theta)&=\sum_{j\in\mathbb Z}(2R)^{-j}w_c(R^{\theta-j}),\label{eq:S}\\
+ D_c(\theta)&=\frac{\displaystyle\sum_{j\in\mathbb Z}(j-\theta)(2R)^{-j}w_c(R^{\theta-j})}{S_c(\theta)}\label{eq:D}
+\end{align}
+converge absolutely and locally uniformly. The function $D_c$ is continuous and satisfies $D_c(\theta+1)=D_c(\theta)$. Moreover,
+\[
+\boxed{\E[K\mid L=n]=\log_R n+D_c(\log_R n)+o(1).}
+\]
+An exact characterization of $w_c$ is given in \eqref{eq:W}. No claim that $D_c$ is nonconstant is needed.
+\end{theorem}
+
+\subsection{From inverse pruning to immigration}
+The established inverse-pruning construction gives
+\[
+X_{k+1}=2X_k+V_k,\qquad
+V_k\mid(X_k,Y_k)\sim\operatorname{Poisson}(\gamma(c-1)Y_k),
+\]
+where, conditional on $X_k=m$, total edge length satisfies
+$Y_k\sim\operatorname{Gamma}(2m-1,\text{rate }\gamma)$.
+Consequently,
+\begin{equation}\label{eq:NB}
+\E[z^{V_k}\mid X_k=m]=[c-(c-1)z]^{-(2m-1)}.
+\end{equation}
+Thus $V_k$ conditional on $X_k=m$ is a sum of $2m-1$ independent copies of $G$, where
+\[
+\Pp(G=r)=c^{-1}(1-c^{-1})^r,\qquad r=0,1,\ldots.
+\]
+Put $\xi=2+2G$. Its mean is $R$, its minimum is two, and its generating function is
+\begin{equation}\label{eq:f}
+f(s)=\E[s^\xi]=\frac{s^2}{c-(c-1)s^2}.
+\end{equation}
+Define a separate Markov chain by
+\begin{equation}\label{eq:immigration}
+Z_1=1,\qquad Z_{k+1}=1+\sum_{i=1}^{Z_k}\xi_{k,i},
+\end{equation}
+with independent offspring variables. Then, by induction on the one-dimensional marginal distributions,
+\begin{equation}\label{eq:match}
+X_k\ \stackrel d=\ \frac{Z_k+1}{2}.
+\end{equation}
+In particular, this step does not require claiming that the original leaf-count sequence is Markov with respect to its inherited tree filtration.
+
+If $F_k(z)=\E[z^{X_k}]$, equivalent exact formulas are
+\begin{align}
+F_1(z)&=z,&F_{k+1}(z)&=[c-(c-1)z]
+ F_k\!\left(\frac{z^2}{[c-(c-1)z]^2}\right),\label{eq:leafpgf}\\
+\E[s^{Z_k}]&=\prod_{r=0}^{k-1}f^{\circ r}(s),&
+\E X_k&=\frac{R^k+R-2}{2(R-1)}.\label{eq:mean}
+\end{align}
+Here $f^{\circ0}(s)=s$. These formulas also fix the order and size normalizations.
+
+\section{An elementary uniform local limit theorem}
+We prove the local result needed for conditioning on an exact number of leaves. Weak convergence alone would not suffice.
+
+Let $H_r$ be a Galton--Watson population with $H_0=1$ and offspring generating function \eqref{eq:f}. Set $U_r=H_r/R^r$.
+
+\begin{lemma}[Moments and the immigration limit]\label{lem:moments}
+For every integer $m\ge1$, $\sup_r\E U_r^m<\infty$. The martingale $U_r$ converges in every finite $L^p$ to a nonnegative variable $U$ of mean one. If $(U_i)_{i\ge1}$ are independent copies of $U$, then
+\begin{equation}\label{eq:W}
+\frac{X_k}{R^k}\ \Longrightarrow\ W_c
+ :=\frac12\sum_{i=1}^{\infty}R^{-i}U_i,
+\qquad \E W_c=\frac1{2(R-1)}.
+\end{equation}
+All integer moments of $X_k/R^k$ are bounded uniformly in $k$.
+\end{lemma}
+\begin{proof}
+The offspring distribution has every moment. Conditional expansion of a sum of $n$ independent offspring variables gives
+\[
+\E[H_{r+1}^m\mid H_r=n]
+ =R^m n^m+O_m(1+n^{m-1}).
+\]
+The coefficients implicit in the bound depend only on $m,c$. Induction on $m$, followed by division by $R^{m(r+1)}$, bounds the successive increments of $\E U_r^m$ above by a constant times $R^{-r}$. Their sum is finite. The martingale convergence theorem, applied with a larger integer moment when necessary, gives convergence in each finite $L^p$ and $\E U=1$.
+
+For independent families indexed by their immigration time,
+\[
+\frac{Z_k}{R^k}\ \stackrel d=\sum_{i=1}^k R^{-i}U_{k-i}^{(i)}.
+\]
+Couple each family along its own Galton--Watson martingale. For fixed finitely many $i$ the terms converge in $L^p$; the remaining tail is bounded in $L^p$ by a constant times $\sum_{i>M}R^{-i}$. Hence the sum converges in $L^p$ to $\sum_{i\ge1}R^{-i}U_i$. Formula \eqref{eq:match} proves the assertion and the moment bounds.
+\end{proof}
+
+\begin{lemma}[Uniform characteristic-function decay]\label{lem:fourier}
+Put $\beta=\log_R2\in(0,1)$. There are constants $C,b>0$, depending on $c$, such that for every $r\ge1$,
+\begin{equation}\label{eq:cfbound}
+\left|\E e^{itU_r}\right|\le C e^{-b|t|^\beta}
+\quad\text{whenever } |t|\le\pi R^r/2.
+\end{equation}
+The limit $U$ has a bounded smooth density.
+\end{lemma}
+\begin{proof}
+Write $\sigma^2=\Var(\xi)>0$. The variance recursion gives
+\[
+\Var(U_r)=\frac{\sigma^2}{R(R-1)}(1-R^{-r}),
+\]
+so these variances are bounded away from zero for $r\ge1$. If $U_r'$ is an independent copy, the third-moment bound and Taylor's inequality for cosine give, uniformly in $r\ge1$,
+\[
+|\E e^{itU_r}|^2
+ =\E\cos(t(U_r-U_r'))
+ =1-\Var(U_r)t^2+O(|t|^3).
+\]
+Thus for some $\delta,\kappa>0$,
+$|\E e^{itU_r}|\le\exp(-\kappa t^2)$ for $|t|\le\delta$.
+
+For $|z|\le1$,
+\begin{equation}\label{eq:squaring}
+|f(z)|\le |z|^2,
+\end{equation}
+and $|f(e^{i\theta})|<1$ for $0<|\theta|\le\pi/2$. Let $t=R^r\theta$. For $|\theta|<\delta/R$ and $|t|\ge\delta$, choose the first integer $j\ge1$ such that
+$R^j|\theta|\ge\delta/R$. Then $j\le r$ and $R^j|\theta|\le\delta$, so
+\[
+|f^{\circ j}(e^{i\theta})|\le
+\exp(-\kappa\delta^2/R^2)=:\alpha<1.
+\]
+Applying \eqref{eq:squaring} another $r-j$ times gives a bound
+$\alpha^{2^{r-j}}\le\exp(-b_1|t|^\beta)$.
+For $\delta/R\le|\theta|\le\pi/2$, compactness bounds
+$|f(e^{i\theta})|$ by a constant less than one, and the same repeated-squaring argument gives the desired bound. Bounded $t$ is absorbed in $C$.
+
+Pass to the martingale limit for each fixed $t$. The limiting characteristic function is bounded by $Ce^{-b|t|^\beta}$; its product with every power of $|t|$ is integrable. Fourier inversion therefore supplies a bounded $C^\infty$ density.
+\end{proof}
+
+\begin{lemma}[Strict positivity]\label{lem:positive}
+The density of $U$ is strictly positive at every $x>0$. The same is true of the density $w_c$ of $W_c$.
+\end{lemma}
+\begin{proof}
+Let $v$ be the continuous density of $U$. It is nonnegative, has total integral one, and is supported on $[0,\infty)$. It is positive on some interval $(a,b)$ with $0<a<b$. The branching identity is
+\[
+U\ \stackrel d=\ R^{-1}\sum_{i=1}^{\xi}U_i.
+\]
+For every $m\ge1$, the event $\xi=2m$ has positive probability. Its convolution term shows that $v$ is positive throughout $(2ma/R,2mb/R)$. For all sufficiently large $m$ these intervals overlap and cover a half-line $(A,\infty)$. The event $\xi=2$ then gives positivity on $(2A/R,\infty)$. Iteration, using $2/R<1$, gives positivity for every $x>0$. These pointwise inferences are valid because the density and each individual convolution term are continuous; an almost-everywhere lower bound between them is therefore pointwise.
+
+For the immigration limit, write
+$2W_c=R^{-1}U_1+V$ with $V=\sum_{i\ge2}R^{-i}U_i$ independent of $U_1$. For every $x>0$, $\Pp(V<x)>0$: make finitely many summands small, using positivity of the density of $U$ near zero, and then use the expectation bound for the remaining independent tail. Consequently
+\[
+w_c(x)=2R\,\E\!\left[v(R(2x-V))\,\mathbf1_{\{V<2x\}}\right]>0.
+\]
+Boundedness and continuity follow either from this convolution or from the characteristic-function argument below.
+\end{proof}
+
+\begin{proposition}[Local limit with weighted local bounds]\label{prop:llt}
+The density $w_c$ in Theorem~\ref{thm:toku} satisfies
+\textnormal{(with $w_c(x)=0$ for $x\le0$)}
+\begin{equation}\label{eq:llt}
+\sup_{n\in\mathbb Z}\left|R^k\Pp(X_k=n)-w_c(n/R^k)\right|\longrightarrow0.
+\end{equation}
+For each integer $m\ge0$ there is $C_m<\infty$ such that
+\begin{equation}\label{eq:localtail}
+R^k\Pp(X_k=n)\le C_m(1+n/R^k)^{-m}
+\qquad(k\ge1,\ n\ge1).
+\end{equation}
+The analogous bound holds for $w_c(x)$, $x\ge0$.
+\end{proposition}
+\begin{proof}
+Let $\Phi_k(t)=\E\exp(itX_k/R^k)$. The independent-family representation writes $\Phi_k$ as a deterministic phase times the characteristic functions of the scaled family variables $\frac12R^{-i}U_{k-i}^{(i)}$. The oldest family and Lemma~\ref{lem:fourier} imply
+\begin{equation}\label{eq:phibound}
+|\Phi_k(t)|\le C\exp(-b'|t|^\beta),
+\quad |t|\le\pi R^k,\quad k\ge2.
+\end{equation}
+The limiting characteristic function is that of $W_c$. Extend $\Phi_k$ by zero outside this interval. Dominated convergence gives convergence in $L^1(\R)$ to the limiting characteristic function. Since $X_k$ is integer-valued, lattice Fourier inversion gives
+\[
+R^k\Pp(X_k=n)=\frac1{2\pi}\int_{-\pi R^k}^{\pi R^k}
+\Phi_k(t)e^{-itn/R^k}\,dt.
+\]
+The $L^1$ convergence proves \eqref{eq:llt}, uniformly in $n$.
+
+For completeness, the following derivative estimate supplies the global local tails required for conditioning. Fix $m$ and suppose $k\ge m+2$. Separate the oldest $m+1$ independent family factors from the rest. Their generations are $k-1,\ldots,k-m-1$, all at least one. Differentiate the product $m$ times. In every term at least one of these $m+1$ factors is undifferentiated. That factor retains the exponential bound of Lemma~\ref{lem:fourier} throughout $[-\pi R^k,\pi R^k]$. Every differentiated factor is bounded by a moment of its scaled family variable; the factor containing the remaining families has the same property by Lemma~\ref{lem:moments}. There are only finitely many product-rule terms for fixed $m$. Thus
+\begin{equation}\label{eq:derivativebound}
+|\Phi_k^{(m)}(t)|\le C_m'\exp(-b_m|t|^\beta)
+\quad (|t|\le\pi R^k),
+\end{equation}
+with constants independent of $k$.
+Indeed, for retained family $i\le m+1$, its Fourier argument is $t/(2R^i)$; the permitted window is $|t|/(2R^i)\le\pi R^{k-i}/2$, exactly $|t|\le\pi R^k$. Its decay constant may depend on fixed $i$, but not on $k$. This checks the full inversion window for every possible undifferentiated factor.
+
+Integrate the Fourier inversion formula by parts $m$ times. All boundary terms cancel: for each derivative order the boundary expressions involve
+$\E[(X_k/R^k)^j e^{\pm i\pi X_k}]e^{\mp i\pi n}$, whose two signs give the same value since $X_k,n$ are integers. It follows that
+\[
+(n/R^k)^m R^k\Pp(X_k=n)
+\le\frac1{2\pi}\int_{-\pi R^k}^{\pi R^k}|\Phi_k^{(m)}(t)|\,dt
+\le C_m''.
+\]
+Combine this with the zeroth-order bound. The finitely many smaller $k$ have generating functions analytic in a neighborhood of $1$, by \eqref{eq:leafpgf}, and hence exponentially decreasing point probabilities. Enlarging the constant covers them. This proves \eqref{eq:localtail}. Passing to the local limit proves the same bound for $w_c$.
+\end{proof}
+
+\section{Conditioning on the exact leaf count}
+\begin{proof}[Proof of Theorem~\ref{thm:toku}]
+Put $m_n=\lfloor\log_R n\rfloor$ and $\theta_n=\log_Rn-m_n\in[0,1)$. For $k=m_n+j\ge1$,
+\begin{align*}
+(2R)^{m_n}\Pp(K=m_n+j,L=n)
+&=(2R)^{-j}\,R^{m_n+j}\Pp(X_{m_n+j}=n)\\
+&\longrightarrow (2R)^{-j}w_c(R^{\theta_n-j}),
+\end{align*}
+where the displayed asymptotic means that the difference tends to zero for each fixed $j$, uniformly in the phase occurring on the right.
+
+The local bound in Proposition~\ref{prop:llt}, with any integer $M>1+\log_R2$, supplies a summable majorant independent of $n$ and $\theta_n$. For $j\ge0$ use $C(2R)^{-j}$. For $j<0$ use
+\[
+C(2R)^{-j}R^{Mj}=C\left(\frac{R^M}{2R}\right)^j.
+\]
+These bounds remain summable after multiplication by any fixed power of $|j|$. The missing terms with $m_n+j<1$ are covered by the same vanishing tail. Dominated summation proves, uniformly in the phase,
+\begin{align*}
+(2R)^{m_n}\Pp(L=n)&=S_c(\theta_n)+o(1),\\
+\E[K-m_n\mid L=n]
+&=\frac{\sum_j j(2R)^{-j}w_c(R^{\theta_n-j})}{S_c(\theta_n)}+o(1).
+\end{align*}
+Strict positivity and continuity of $w_c$ give
+$\inf_{0\le\theta\le1}S_c(\theta)>0$, for example using just its $j=0$ term. This justifies division. The same summable bounds establish continuity of the defining series. Replacing $j$ by $j+1$ shows that both numerator and denominator in \eqref{eq:D} acquire the same factor $(2R)^{-1}$ when $\theta$ is replaced by $\theta+1$. Hence $D_c$ is period one. Finally, $m_n=\log_Rn-\theta_n$ gives the theorem.
+\end{proof}
+
+\begin{corollary}
+The conditional distribution of $K-m_n$ is asymptotically the phase-dependent probability mass function
+\[
+p_\theta(j)=\frac{(2R)^{-j}w_c(R^{\theta-j})}{S_c(\theta)},\qquad j\in\mathbb Z.
+\]
+The approximation holds in total variation along the actual phases $\theta_n$, and for every fixed absolute moment. Also,
+\[
+\Pp(L=n)=n^{-(1+\log_R2)}\bigl[P_c(\log_Rn)+o(1)\bigr],
+\quad P_c(\theta)=(2R)^\theta S_c(\theta),
+\]
+where $P_c$ is positive, continuous and period one.
+\end{corollary}
+
+\part*{II. Strong geometric Horton asymptotics}
+\section{Kingman: deterministic densities and the ODE hierarchy}
+For an $N$-leaf Kingman coalescent tree, let $N_j^{(N)}$ be the number of order-$j$ branches. The established finite-order result in~\cite{KZ2017} identifies constants
+\[
+\frac{N_j^{(N)}}{N}\xrightarrow[N\to\infty]{\Pp}\NN_j,
+\qquad \NN_j=\frac12\int_0^\infty g_j(t)^2\,dt,
+\]
+where
+\[
+g_1(t)=\frac2{t+2},\qquad
+g_{j+1}'=\frac12g_j^2-g_jg_{j+1},\qquad g_{j+1}(0)=0.
+\]
+Define $h_0=0$ and, for $k\ge1$,
+\begin{equation}\label{eq:hode}
+h_k'=2h_{k-1}h_k-h_{k-1}^2,\qquad h_k(0)=1.
+\end{equation}
+In particular, $h_1=1$ and $h_2=(1+e^{2x})/2$. The transformation
+\[
+h_k(x)=\frac1{1-x}-\frac{g_{k+1}(2x/(1-x))}{(1-x)^2}
+\]
+gives, with the indexing made explicit,
+\begin{equation}\label{eq:Ak}
+A_k:=\int_0^1[1-(1-x)h_k(x)]^2\,dx=\NN_{k+1},\qquad A_0=\NN_1=1.
+\end{equation}
+Every finite $h_k$ is smooth and finite on $[0,1]$, by induction through the linear ODE. Let $a_k=h_k(1)$ for $k\ge1$.
+
+\begin{theorem}\label{thm:kingman}
+There exist $\rho\in[2,4]$ and $H\in(0,\infty)$ such that
+\[
+\boxed{\frac{\NN_j}{\NN_{j+1}}\longrightarrow\rho,
+\qquad \NN_j\rho^j\longrightarrow H.}
+\]
+More explicitly,
+\[
+\rho=\lim_{k\to\infty}\frac{a_{k+1}}{a_k},\qquad
+H=\frac{\rho B_*}{C_*},
+\]
+where $B_*$ and $C_*$ are positive monotone limits constructed below. In particular $\rho/3\le H\le\rho^2$.
+\end{theorem}
+
+\subsection{Basic comparison facts}
+Subtracting consecutive equations gives
+\[
+(h_{k+1}-h_k)'=2h_k(h_{k+1}-h_k)+(h_k-h_{k-1})^2.
+\]
+Hence $0\le h_{k-1}\le h_k$, with strict order for $x>0$ once applicable. Therefore
+\begin{equation}\label{eq:basic}
+0\le h_k'=h_k^2-(h_k-h_{k-1})^2\le h_k^2,
+\qquad h_k(x)<\frac1{1-x}\quad(0<x<1).
+\end{equation}
+For later comparisons, if two ordered hierarchies have consecutive entries $(p,u)$ and $(q,v)$, their difference obeys the identity
+\begin{equation}\label{eq:comparison}
+(2pu-p^2)-(2qv-q^2)
+=(p+q)(u-v)+(p-q)(u+v-p-q).
+\end{equation}
+When $p\ge q$, $u\ge p$, $v\ge q$ and the initial difference $u-v$ is nonnegative, the integrating-factor formula implies $u-v\ge0$ throughout the interval.
+The forcing sign uses $u+v-p-q=(u-p)+(v-q)\ge0$ in the ordered region; it does not assume the conclusion $u\ge v$ in advance.
+
+\subsection{Endpoint rescaling and its monotonicity}
+For $\gamma\in(0,1)$ set
+\[
+V_{k,\gamma}(x)=
+\begin{cases}
+(1-x)^{-1},&0\le x\le1-\gamma,\\
+\gamma^{-1}h_k((x-1+\gamma)/\gamma),&1-\gamma\le x\le1.
+\end{cases}
+\]
+This is the comparison family used in~\cite{KZ2017,KZ2020}; a proof of its needed properties follows to make the analytic argument explicit.
+
+\begin{lemma}\label{lem:V}
+For $\gamma_k=a_k/a_{k+1}$,
+\[
+h_{k+1}\le V_{k,\gamma_k},\qquad \gamma_{k+1}\ge\gamma_k.
+\]
+Consequently $a_{k+1}/a_k$ decreases to a finite limit $\rho\ge1$.
+\end{lemma}
+\begin{proof}
+The function $(1-x)h_k(x)$ is nonincreasing by \eqref{eq:basic}. For $y=(x-1+\gamma)/\gamma\le x$ and $x\ge1-\gamma$, this implies
+$\gamma^{-1}h_k(y)\ge h_k(x)$. Thus $V_{k,\gamma}\ge h_k$, and $V_{k+1,\gamma}\ge V_{k,\gamma}$. Both hierarchies satisfy the same ODE relation, with the $V$ relation understood piecewise at $1-\gamma$.
+
+For fixed $\gamma$, the function $D_k=V_{k,\gamma}-h_{k+1}$ changes sign at most once, from positive to negative, on $[1-\gamma,1]$. At $k=1$, $V_{1,\gamma}$ is constant on that interval and $h_2$ is increasing. Inductively,
+\[
+\frac d{dx}\left[D_{k+1}e^{-2\int_{1-\gamma}^x h_{k+1}}
+\right]
+=(2V_{k+1,\gamma}-V_{k,\gamma}-h_{k+1})D_k
+ e^{-2\int_{1-\gamma}^x h_{k+1}}.
+\]
+The first factor is nonnegative: $V_{k+1,\gamma}\ge V_{k,\gamma}$ and $V_{k+1,\gamma}\ge h_{k+1}$. The integrating-factor expression starts strictly positive and first increases, then can only decrease. It can therefore cross zero at most once, in the stated direction; once negative, it cannot return to zero. Taking $\gamma=\gamma_k$ makes $D_k(1)=0$, so $D_k$ cannot have been negative before the endpoint. On the remaining interval the inequality follows from \eqref{eq:basic}.
+
+Now compare $V_{k+1,\gamma_k}$ with $h_{k+2}$. The preceding levels satisfy $V_{k,\gamma_k}\ge h_{k+1}$, both hierarchies are ordered, and both next levels start at one. Formula \eqref{eq:comparison} gives $V_{k+1,\gamma_k}\ge h_{k+2}$. At the endpoint this reads $a_{k+1}/\gamma_k\ge a_{k+2}$, or $\gamma_{k+1}\ge\gamma_k$. Positivity and $a_{k+1}\ge a_k$ finish the proof.
+\end{proof}
+
+\section{Monotone normalized profiles}
+For $u\ge0$ define the continuous extension
+\begin{equation}\label{eq:q}
+q_k(u)=
+\begin{cases}
+a_k^{-1}h_k(1-u/a_k),&0\le u\le a_k,\\
+u^{-1},&u\ge a_k.
+\end{cases}
+\end{equation}
+At $u=0$ the first branch is used. Lemma~\ref{lem:V} gives
+\begin{equation}\label{eq:qmono}
+q_{k+1}(u)\le q_k(u)\quad\text{for every }u\ge0.
+\end{equation}
+Indeed, for $u\le a_k$ this is exactly $h_{k+1}\le V_{k,\gamma_k}$ after substituting $x=1-u/a_{k+1}$. For $a_k\le u\le a_{k+1}$ it follows from $h_{k+1}(x)\le(1-x)^{-1}$, and beyond $a_{k+1}$ both extensions equal $1/u$.
+
+Furthermore, \eqref{eq:basic} and $q_k(0)=1$ give
+\begin{equation}\label{eq:qbound}
+\frac1{1+u}\le q_k(u)\le\min\{1,u^{-1}\}.
+\end{equation}
+For the lower bound, on the first interval $-q_k^2\le q_k'\le0$, so $(1/q_k)'\le1$; the extension also satisfies the bound.
+
+Put $e_k(u)=1-uq_k(u)$, with $e_k(0)=1$. Then $e_k$ vanishes for $u\ge a_k$, increases pointwise with $k$, and
+\[
+0\le e_k(u)\le(1+u)^{-1}.
+\]
+The change of variables $u=a_k(1-x)$ yields
+\begin{equation}\label{eq:B}
+B_k:=a_kA_k=\int_0^\infty e_k(u)^2\,du
+\ \uparrow\ B_*\in[1/3,1].
+\end{equation}
+The upper bound is the integral of $(1+u)^{-2}$; the lower bound follows already from $B_1=\int_0^1(1-u)^2\,du=1/3$.
+
+This step alone gives the ratio law, since
+\[
+\frac{A_k}{A_{k+1}}=\frac{a_{k+1}}{a_k}\frac{B_k}{B_{k+1}}\longrightarrow\rho.
+\]
+It does not, by itself, prove positivity of the strong-law constant. That is the purpose of the next comparison.
+
+\section{A fractional-linear comparison and the positive strong limit}
+\begin{lemma}[Supermultiplicativity]\label{lem:super}
+For all integers $\ell,j\ge1$,
+\begin{equation}\label{eq:super}
+a_{\ell+j}+1\ge(a_\ell+1)(a_j+1).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $0<b<1$, put $a=1-b$ and define
+\begin{equation}\label{eq:mobius}
+(\mathcal M_b h_j)(x)
+=\frac b{1-bx}+\frac a{(1-bx)^2}
+ h_j\!\left(\frac{ax}{1-bx}\right),\qquad 0\le x\le1.
+\end{equation}
+The transformed argument runs from zero to one. Direct differentiation shows that the transformed hierarchy satisfies the same ODE \eqref{eq:hode}. Its entries of index $j\ge1$ start at $b+a=1$, and its index-zero entry is $b/(1-bx)$. The hierarchy remains ordered, since its scale factor is positive.
+
+Fix $\ell$. Integrating $h_\ell'/h_\ell^2\le1$ from $x$ to $1$ gives
+\[
+h_\ell(x)\ge\frac{a_\ell}{1+a_\ell(1-x)}.
+\]
+Choose $b=a_\ell/(1+a_\ell)$, so this lower bound is exactly the index-zero entry $b/(1-bx)$ of the transformed hierarchy. Compare the shifted hierarchy $h_{\ell+j}$ with $\mathcal M_b h_j$ using \eqref{eq:comparison}, inductively in $j$. Their next-level initial values agree, and their level-zero entries are ordered, hence
+\[
+h_{\ell+j}(x)\ge(\mathcal M_bh_j)(x).
+\]
+At $x=1$, the right side is $a_\ell+(1+a_\ell)a_j$. Adding one gives \eqref{eq:super}.
+\end{proof}
+
+By Lemma~\ref{lem:V}, $a_k^{1/k}\to\rho$. Supermultiplicativity and $a_1+1=2$ imply $a_k+1\ge2^k$, hence $\rho\ge2$. Iterating \eqref{eq:super} at any fixed index $k$ and taking roots gives
+\begin{equation}\label{eq:endpointbound}
+a_k+1\le\rho^k\qquad(k\ge1).
+\end{equation}
+Since every endpoint ratio is at least its decreasing limit $\rho$,
+\begin{equation}\label{eq:C}
+C_k:=a_k\rho^{-k}\ \uparrow\ C_*,\qquad
+\frac1\rho\le C_*\le1.
+\end{equation}
+This bounded, positive normalization excludes the otherwise possible zero strong limit.
+
+\begin{proof}[Proof of Theorem~\ref{thm:kingman}]
+Using \eqref{eq:Ak}, \eqref{eq:B} and \eqref{eq:C},
+\[
+\NN_j\rho^j=A_{j-1}\rho^j
+=\rho\,\frac{B_{j-1}}{C_{j-1}}
+\longrightarrow H:=\frac{\rho B_*}{C_*}\in(0,\infty).
+\]
+The ratio law follows either from this positive limit or from the direct computation in the preceding section. The bounds on $B_*$ and $C_*$ give $\rho/3\le H\le\rho^2$.
+
+For completeness, to obtain $\rho\le4$, set $r_k(x)=1-(1-x)h_k(x)$. Equation \eqref{eq:hode} gives
+\[
+[(1-x)r_{k+1}(x)]'=r_k(x)^2-2r_k(x)r_{k+1}(x).
+\]
+Both boundary values on the left are zero. Thus
+$A_k=2\int_0^1r_kr_{k+1}\,dx$, and Cauchy--Schwarz yields $A_k\le4A_{k+1}$. Passing to the ratio limit gives $\rho\le4$. The same identity and $r_k\ge r_{k+1}\ge0$ give the familiar lower bound $A_k\ge2A_{k+1}$.
+\end{proof}
+
+\begin{remark}[Exact characterizations versus decimal estimates]
+The proof supplies exact definitions
+\[
+\rho=\inf_{k\ge1}\frac{a_{k+1}}{a_k}
+=\sup_{k\ge1}(a_k+1)^{1/k},\qquad
+H=\rho\,\frac{\int_0^\infty(1-uq(u))^2\,du}{\sup_k a_k\rho^{-k}},
+\]
+where $q(u)=\inf_kq_k(u)$. These characterize the constants without requiring a closed form. In particular, exact endpoint evaluations would give the rigorous enclosure
+$(a_k+1)^{1/k}\le\rho\le a_{k+1}/a_k$.
+\end{remark}
+
+\section{Checks, limitations and reproducibility}
+The proofs above are analytic. The supplied scripts are independent diagnostics of algebra, indexing and finite computations, not a formal proof certificate or an independent referee report.
+
+\paragraph{Exact checks.}
+\texttt{verify\_exact.py} verifies the fractional-linear ODE identity and the cooperative comparison identity symbolically. It computes finite leaf-count probabilities with rational arithmetic for $c=5/4,3/2,2,7/2$ through $n=64$, checks positivity and minimum-size support, and verifies at $c=2$ that the order mixture equals
+\[
+\Pp(L=n)=\frac{1}{2^{2n-1}}\frac1n\binom{2n-2}{n-1}
+\qquad(1\le n\le64).
+\]
+This last identity is a finite check against the critical binary Galton--Watson/Catalan case, not an input to the general-$c$ proof.
+
+\paragraph{Numerical checks.}
+\texttt{verify\_numeric.py} integrates a rescaled form of the hierarchy. It uses $s=-\log(1-x)$ and $z_k(s)=\log h_k(1-e^{-s})$, avoiding direct resolution of exponentially narrow endpoint layers. Finite-order values and floating-point diagnostics give
+\[
+\rho\approx3.04382786,\qquad B_*\approx0.52476436,
+\qquad C_*\approx0.51627578,\qquad H\approx3.09387432.
+\]
+These decimals are not interval-certified. The revised script uses \texttt{expm1} for the small residual, a central integration window, and retained quadrature errors and warnings. The profile envelope bounds omitted tails for the window $[-25,25]$ by $2/(1+e^{25})<2.78\times10^{-11}$; this is not an ODE or roundoff error bound. The original 60-order diagnostic drifted by about $0.245\%$ in $H$ while still passing finite inequalities. That evidence is retained in the review audit. The revised \texttt{verify\_stability.py} separately compares 40- and 60-order runs with different step sizes. Finite inequalities, quadrature diagnostics and empirical stability are distinct checks. All checks remain active under optimized Python. Neither apparent convergence rates nor a finite grid is used to justify an infinite limit.
+
+\paragraph{Status.}
+This is a candidate complete proof of the two stated mathematical questions under the source conventions. A supplied review and internal analytical and computational checks support it; these are not external peer review, independent reproduction, or proof-assistant verification. The novelty comparison is targeted rather than exhaustive. Nothing here proves an unrestricted joint $j,N$ limit for finite Kingman trees or empirically establishes that real river networks follow either model.
+
+\begin{thebibliography}{9}
+\bibitem{FRV1979} Flajolet, P., Raoult, J.-C., \& Vuillemin, J. (1979).
+The number of registers required for evaluating arithmetic expressions.
+\emph{Theoretical Computer Science, 9}(1), 99--125.
+\href{https://doi.org/10.1016/0304-3975(79)90009-4}{doi:10.1016/0304-3975(79)90009-4}.
+\bibitem{BDR2021} Brandenberger, A., Devroye, L., \& Reddad, T. (2021).
+The Horton--Strahler number of conditioned Galton--Watson trees.
+\emph{Electronic Journal of Probability, 26}, Article 109, 1--29.
+\href{https://doi.org/10.1214/21-EJP678}{doi:10.1214/21-EJP678}.
+\bibitem{Khanfir2025} Khanfir, R. (2025).
+The Horton--Strahler number of Galton--Watson trees with possibly infinite variance.
+\emph{Annals of Applied Probability, 35}(5), 3620--3652.
+\href{https://doi.org/10.1214/25-AAP2204}{doi:10.1214/25-AAP2204}.
+\bibitem{KhanfirFluct} Khanfir, R. (2025).
+Fluctuations of the Horton--Strahler number of stable Galton--Watson trees.
+Preprint, version 2. \url{https://arxiv.org/abs/2401.13771v2}.
+\bibitem{KZ2017}
+Kovchegov, Y., \& Zaliapin, I. (2017).
+Horton self-similarity of Kingman's coalescent tree.
+\emph{Annales de l'Institut Henri Poincar\'e, Probabilit\'es et Statistiques, 53}(3), 1069--1107.
+\href{https://doi.org/10.1214/16-AIHP748}{doi:10.1214/16-AIHP748}.
+Preprint: \url{https://arxiv.org/abs/1207.7108}.
+
+\bibitem{KZ2020}
+Kovchegov, Y., \& Zaliapin, I. (2020).
+Random self-similar trees: A mathematical theory of Horton laws.
+\emph{Probability Surveys, 17}, 1--213.
+\href{https://doi.org/10.1214/19-PS331}{doi:10.1214/19-PS331}.
+Preprint: \url{https://arxiv.org/abs/1905.02629}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite this unrefereed candidate."
+title: "Leaf-conditioned order in critical Tokunaga trees and strong Horton asymptotics for Kingman's coalescent"
+authors:
+  - name: Anonymous
+version: "1.1.0-candidate"
+date-released: 2026-10-05
+doi: 10.5281/zenodo.23160583
+url: https://github.com/ipitchford/horton-tokunaga-kingman-asymptotics
+license: CC0-1.0

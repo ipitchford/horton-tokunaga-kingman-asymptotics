@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-05",
+  "overall": "candidate_complete_analytic_proof_independent_review_pending",
+  "claims": {
+    "critical_tokunaga_all_c_greater_than_1": {
+      "status": "analytic_proof_supplied",
+      "manuscript": "Theorem 2.1, Section 3 local limit theorem and Section 4 conditioning"
+    },
+    "kingman_ratio_horton_law": {
+      "status": "analytic_proof_supplied",
+      "manuscript": "Theorem 5.1 and Section 6"
+    },
+    "kingman_positive_strong_horton_law": {
+      "status": "analytic_proof_supplied",
+      "manuscript": "Theorem 5.1 and Section 7"
+    },
+    "arbitrary_joint_order_tree_size_limit": {
+      "status": "not_claimed"
+    },
+    "closed_form_for_kingman_rho": {
+      "status": "not_claimed"
+    },
+    "empirical_river_model_validity": {
+      "status": "not_claimed"
+    }
+  },
+  "checks": {
+    "exact_symbolic_and_rational": "passed",
+    "finite_floating_point_diagnostics": "revised 40/60 runs passed; not interval certified",
+    "pdf_compilation": "passed",
+    "pdf_visual_render_review": "passed: all 11 revised pages inspected; no unresolved references or clipping",
+    "proof_assistant_verification": "not_performed",
+    "independent_referee_review": "not_performed",
+    "interval_certified_decimal_constants": "not_performed",
+    "exhaustive_novelty_audit": "not_performed",
+    "cross_run_stability": "passed absolute differences below 2e-7; H difference 2.23e-10",
+    "semantic_negative_controls": "six rejected in normal and optimized modes",
+    "supplied_review": "actioned; unauthenticated external identity"
+  },
+  "numerical_estimates": {
+    "rho": 3.04382786,
+    "H": 3.09387432,
+    "certified": false
+  },
+  "source_inputs": [
+    "Kovchegov & Zaliapin (2020), critical Tokunaga inverse-pruning construction and edge-length independence",
+    "Kovchegov & Zaliapin (2017), hydrodynamic branch-density representation for Kingman"
+  ],
+  "repository_modifications": true,
+  "python_version": "3.13.5",
+  "version": "1.1.0-candidate"
+}

@@ -1,0 +1,40 @@
+{
+  "symbolic_mobius_identity": true,
+  "symbolic_comparison_identity": true,
+  "symbolic_mean_recurrence": true,
+  "maximum_leaf_count": 64,
+  "cases": [
+    {
+      "c": "5/4",
+      "finite_probabilities_nonnegative": true,
+      "minimum_order_support_correct": true,
+      "c2_catalan_identity": false,
+      "P_N_2": "1/5",
+      "P_N_3": "1/25"
+    },
+    {
+      "c": "3/2",
+      "finite_probabilities_nonnegative": true,
+      "minimum_order_support_correct": true,
+      "c2_catalan_identity": false,
+      "P_N_2": "1/6",
+      "P_N_3": "1/18"
+    },
+    {
+      "c": "2",
+      "finite_probabilities_nonnegative": true,
+      "minimum_order_support_correct": true,
+      "c2_catalan_identity": true,
+      "P_N_2": "1/8",
+      "P_N_3": "1/16"
+    },
+    {
+      "c": "7/2",
+      "finite_probabilities_nonnegative": true,
+      "minimum_order_support_correct": true,
+      "c2_catalan_identity": false,
+      "P_N_2": "1/14",
+      "P_N_3": "5/98"
+    }
+  ]
+}

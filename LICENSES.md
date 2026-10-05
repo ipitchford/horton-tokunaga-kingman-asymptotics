@@ -1,0 +1,1 @@
+Original manuscript, documentation and generated diagnostic data: CC0-1.0. Original Python code and CI: MIT. External scholarly sources and the supplied private referee audit retain their rights and are not redistributed. Installed numerical libraries are dependencies, not bundled code.

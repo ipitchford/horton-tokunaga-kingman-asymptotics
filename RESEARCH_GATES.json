@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.0",
+  "contributionMap": [
+    {
+      "claim": "General c>1 exact-leaf-conditioned local law and moments",
+      "unit": "statement",
+      "paperLocation": "Theorem 2.1 and Section 4",
+      "searches": [
+        {
+          "date": "2026-10-05",
+          "query": "Tokunaga leaf conditioned Kingman strong Horton 2026",
+          "corpus": "Web primary-source search and supplied dated audit"
+        }
+      ],
+      "closestPriorWork": "Classical c=2 periodic register law; modern Galton-Watson first-order and weighted-statistic fluctuations",
+      "verdict": "new-in-bounded-search"
+    },
+    {
+      "claim": "Positive geometric prefactor for deterministic Kingman densities",
+      "unit": "statement",
+      "paperLocation": "Theorem 5.1 and Sections 6–7",
+      "searches": [
+        {
+          "date": "2026-10-05",
+          "query": "strong Horton law Kingman ratio coalescent",
+          "corpus": "Supplied dated audit and primary-source comparison"
+        }
+      ],
+      "closestPriorWork": "Kovchegov and Zaliapin 2017 root-Horton and endpoint comparison",
+      "verdict": "new-in-bounded-search"
+    },
+    {
+      "claim": "Weighted Fourier inversion and Mobius hierarchy comparison",
+      "unit": "method",
+      "paperLocation": "Sections 3 and 7",
+      "searches": [
+        {
+          "date": "2026-10-05",
+          "query": "\"Kingman\" \"supermultiplicative\" Horton; \"Tokunaga\" \"local limit\" immigration; \"Horton\" \"fractional-linear\" comparison",
+          "corpus": "Web discovery and source comparison"
+        }
+      ],
+      "closestPriorWork": "Kovchegov-Zaliapin endpoint hierarchy comparison; general Fourier and branching methods are established tools",
+      "verdict": "new-in-bounded-search"
+    }
+  ],
+  "sourcesReadInFull": [
+    {
+      "citation": "Kovchegov and Zaliapin (2020)",
+      "evidenceLocator": "https://zaliapin.github.io/pubs/KZ_PS2020.pdf",
+      "readWhat": "Published sections 7.5–7.6.1 parameter, exponential edge and inverse-pruning statements",
+      "usedFor": "Scope and inherited input comparison; selected full-text portions, not independent reproving",
+      "date": "2026-10-05"
+    },
+    {
+      "citation": "Kovchegov and Zaliapin (2017)",
+      "evidenceLocator": "https://sites.science.oregonstate.edu/~kovchegy/web/papers/HortonODEoffprint.pdf",
+      "readWhat": "Theorem 1 and Section 6 ODE/endpoint comparison",
+      "usedFor": "Scope and inherited input comparison; selected full-text portions, not independent reproving",
+      "date": "2026-10-05"
+    },
+    {
+      "citation": "Khanfir (2025) fluctuations v2",
+      "evidenceLocator": "https://arxiv.org/html/2401.13771v2",
+      "readWhat": "Introduction definitions, equation (1.3) and main-result framework",
+      "usedFor": "Scope and inherited input comparison; selected full-text portions, not independent reproving",
+      "date": "2026-10-05"
+    },
+    {
+      "citation": "Brandenberger et al. (2021)",
+      "evidenceLocator": "https://luc.devroye.org/Brandenberger-Devroye-Reddad-HortonStrahler-2021.pdf",
+      "readWhat": "Model conventions and first-order theorem",
+      "usedFor": "Scope and inherited input comparison; selected full-text portions, not independent reproving",
+      "date": "2026-10-05"
+    },
+    {
+      "citation": "Khanfir (2025) infinite variance",
+      "evidenceLocator": "https://arxiv.org/html/2307.05983v2",
+      "readWhat": "Theorem 1.3 and stable-domain assumptions",
+      "usedFor": "Scope and inherited input comparison; selected full-text portions, not independent reproving",
+      "date": "2026-10-05"
+    }
+  ],
+  "limitationTriage": [
+    {
+      "limitation": "Uncertified numerical constants",
+      "closingQuestion": "Does a stable diagnostic provide an interval enclosure?",
+      "triedOrSearched": "40/60 order refinement and analytic tail bound",
+      "estimatedCost": "New validated ODE analysis required",
+      "cheap": false,
+      "decision": "OPEN",
+      "reasonOpen": "Stability is not a total error enclosure",
+      "whyNotClosedNow": "Not needed for analytic theorem; reviewer explicitly treats as future work"
+    }
+  ],
+  "extensionScout": {
+    "by": "Codex publication agent",
+    "date": "2026-10-05",
+    "proposals": [
+      "Explicit classical normalization",
+      "Fail-closed optimized checks"
+    ],
+    "actions": [
+      "Implemented both without broadening claims"
+    ]
+  }
+}

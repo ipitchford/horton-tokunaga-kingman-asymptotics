@@ -1,0 +1,16 @@
+name: Research diagnostics
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+      - run: python verify_exact.py && python -O verify_exact.py
+      - run: python verify_numeric.py --orders 40 --output numeric40.json
+      - run: python -O verify_numeric.py --orders 60 --step .04 --output numeric60.json
+      - run: python verify_stability.py numeric40.json numeric60.json
+      - run: python negative_controls.py && python -O negative_controls.py
